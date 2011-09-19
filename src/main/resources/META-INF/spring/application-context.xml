@@ -1,78 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
-        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
-
-	<mvc:annotation-driven />
-
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-
-	<mvc:view-controller path="/" view-name="home" />
-
-
-	<context:component-scan base-package="com.mblanc" />
-
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-
-
-	<jpa:repositories base-package="com.mblanc.model" />
-
-	<jdbc:embedded-database id="dataSource" type="HSQL">
-		<!-- <jdbc:script location="classpath:schema.sql"/> -->
-		<!-- <jdbc:script location="classpath:test-data.sql"/> -->
-	</jdbc:embedded-database>
-
-
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="loadTimeWeaver">
-			<bean
-				class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
-		</property>
-		<property name="jpaDialect">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
-		</property>
-		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect" />
-				<property name="showSql" value="true" />
-				<property name="generateDdl" value="true" />
-			</bean>
-		</property>
-		<property name="jpaProperties">
-			<props>
-				<!-- Override properties defined in /META-INF/persistence.xml -->
-				<prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
-				<prop key="hibernate.cache.use_query_cache">true</prop>
-				<prop key="hibernate.cache.use_second_level_cache">true</prop>
-				<prop key="hibernate.cache.use_structured_entries">true</prop>
-				<prop key="hibernate.current_session_context_class">thread</prop>
-				<prop key="hibernate.generate_statistics">true</prop>
-				<prop key="javax.persistence.transactionType">RESOURCE_LOCAL</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.use_sql_comments">false</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.format_sql">false</prop>
-				<prop key=""></prop>
-			</props>
-		</property>
-	</bean>
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <context:component-scan base-package="com.mblanc" />
+        
+    <import resource="hibernate-context.xml" />
+    <import resource="spring-mvc-context.xml" />
 
 </beans>
