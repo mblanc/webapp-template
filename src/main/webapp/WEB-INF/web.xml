@@ -19,6 +19,8 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+
+
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
@@ -43,7 +45,21 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+
+	<!-- Spring MVC Filter : transform POST in DELETE or PUT by reading a hidden 
+		input -->
+	<filter>
+		<filter-name>httpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>httpMethodFilter</filter-name>
+		<servlet-name>appServlet</servlet-name>
+	</filter-mapping>
+
+
+
 	<!-- SiteMesh -->
 	<filter>
 		<filter-name>sitemesh</filter-name>

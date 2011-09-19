@@ -1,7 +1,23 @@
+html {
+	background: url("../img/diagonal-noise.png") repeat scroll 0% 0% transparent;
+}
+
 body {
 	padding-top: 40px;
+	background: transparent;
+	height: 100%;
 }
 
 .main {
-	margin-top: 50px;		
+	
+    		
+    background-color: #FFFFFF;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    margin: 0 -20px;
+    padding: 20px;
+}
+
+.container > footer p {
+    text-align: center;
 }
