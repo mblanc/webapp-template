@@ -4,10 +4,12 @@
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa" 
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
         
 	<tx:annotation-driven transaction-manager="transactionManager" />
@@ -20,12 +22,6 @@
 
 	<jpa:repositories base-package="com.mblanc.model" />
 
-	<jdbc:embedded-database id="dataSource" type="HSQL">
-		<!-- <jdbc:script location="classpath:schema.sql"/> -->
-		<!-- <jdbc:script location="classpath:test-data.sql"/> -->
-	</jdbc:embedded-database>
-
-
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="loadTimeWeaver">
@@ -37,7 +33,7 @@
 		</property>
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect" />
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
 				<property name="showSql" value="true" />
 				<property name="generateDdl" value="true" />
 			</bean>
@@ -52,7 +48,7 @@
 				<prop key="hibernate.current_session_context_class">thread</prop>
 				<prop key="hibernate.generate_statistics">true</prop>
 				<prop key="javax.persistence.transactionType">RESOURCE_LOCAL</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.use_sql_comments">false</prop>
 				<prop key="hibernate.show_sql">true</prop>
@@ -61,4 +57,30 @@
 			</props>
 		</property>
 	</bean>
+	
+	<beans profile="test">
+        <jdbc:embedded-database id="dataSource" type="HSQL">
+			<!-- <jdbc:script location="classpath:schema.sql"/> -->
+			<!-- <jdbc:script location="classpath:test-data.sql"/> -->
+		</jdbc:embedded-database>
+    </beans>
+    
+    <beans profile="dev">
+	    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+			<property name="url" value="jdbc:mysql://localhost:3306/webapp-template?autoReconnect=true"/>
+			<property name="username" value="root"/>
+			<property name="password" value="admin"/>
+		</bean>
+	</beans>
+ 
+    <beans profile="production">
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+			<property name="url" value="jdbc:mysql://webdb.cf9jzprgkceo.eu-west-1.rds.amazonaws.com:3306/webdb?autoReconnect=true"/>
+			<property name="username" value="webdb"/>
+			<property name="password" value="webdb"/>
+		</bean>
+    </beans>
+    
 </beans>
