@@ -4,15 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.QueryHint;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@NamedQuery(name = "User.findAllWithCache", query = "select u from User u",  hints={@QueryHint(name="org.hibernate.cacheable", value="true")})
 public class User {
 
 	@Id

@@ -21,7 +21,7 @@ public class UsersController {
 	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public ModelAndView list() {
-		Iterable<User> users = userRepository.findAll();
+		Iterable<User> users = userRepository.findAllWithCache();
 		return new ModelAndView("users/list", new ModelMap("users", users));
 	}
 
