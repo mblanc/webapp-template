@@ -53,7 +53,6 @@
 				<prop key="hibernate.use_sql_comments">false</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">false</prop>
-				<prop key=""></prop>
 			</props>
 		</property>
 	</bean>
