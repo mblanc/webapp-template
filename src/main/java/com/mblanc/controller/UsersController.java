@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mblanc.model.User;
-import com.mblanc.model.UserRepository;
+import com.mblanc.repository.UserRepository;
 
 @Controller
 public class UsersController {
