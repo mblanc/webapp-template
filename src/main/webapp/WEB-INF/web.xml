@@ -54,8 +54,6 @@
 		<servlet-name>appServlet</servlet-name>
 	</filter-mapping>
 
-
-
 	<!-- SiteMesh -->
 	<filter>
 		<filter-name>sitemesh</filter-name>
