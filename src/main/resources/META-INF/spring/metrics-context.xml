@@ -1,0 +1,16 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:metrics="http://www.ryantenney.com/schema/metrics"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.ryantenney.com/schema/metrics
+            http://www.ryantenney.com/schema/metrics/metrics-3.0.xsd">
+
+	<bean id="healthRegistry" class="com.codahale.metrics.health.HealthCheckRegistry" />
+	<metrics:metric-registry id="registry" name="springMetrics" />
+    <metrics:annotation-driven metric-registry="registry" health-check-registry="healthRegistry" />
+    <metrics:reporter type="jmx" metric-registry="registry" />
+    <metrics:reporter type="slf4j" metric-registry="registry" period="1m" />
+    
+</beans>
