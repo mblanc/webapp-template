@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -15,9 +16,11 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
+	@NotEmpty
 	private String firstname;
 
+	@NotEmpty
 	private String lastname;
 
 	public Long getId() {

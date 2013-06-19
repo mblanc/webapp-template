@@ -6,10 +6,11 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="com.mblanc" />
-	
 
 	<import resource="hibernate-context.xml" />
 	<import resource="spring-mvc-context.xml" />
 	<import resource="cache-context.xml" />
+	<import resource="mongo-context.xml" />
+	<import resource="metrics-context.xml" />
 
 </beans>
